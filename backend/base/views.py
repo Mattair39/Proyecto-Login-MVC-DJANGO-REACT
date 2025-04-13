@@ -85,6 +85,12 @@ def logout(request):
         return Response({'success': False})
 
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def is_authenticated(request):
+   return Response({'authenticated': True})
+       
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])	
 def get_notes(request):
@@ -92,6 +98,3 @@ def get_notes(request):
     notes = Note.objects.filter(owner=user)
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
-
-
-

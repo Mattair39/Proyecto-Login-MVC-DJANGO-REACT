@@ -97,7 +97,7 @@ def register(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
-    return Response(serializer.error)
+    return Response(serializer.errors)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])	

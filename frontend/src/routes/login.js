@@ -1,15 +1,17 @@
 import { VStack, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
-import { useState } from "react"; 
 
-import { login } from "../endpoints/api";
+import { useState } from "react"; 
+import { useAuth } from "../contexts/useAuth";
+
 
 const Login = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { login_user } = useAuth();
 
     const handleLogin = () => {
-        login (username, password)
+        login_user(username, password)
     }
 
     return (

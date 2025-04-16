@@ -1,30 +1,42 @@
 import {
     VStack, Button, FormControl, FormLabel,
-    Input, Heading, Text, Box
+    Input, Heading, Box
   } from "@chakra-ui/react";
   import { useState } from "react";
   import { useAuth } from "../contexts/useAuth";
-  import { useNavigate } from "react-router-dom";
   
-  const Login = () => {
+  const Register = () => {
     const [username, setUsername] = useState("");
+    const [email, setEmail]       = useState("");
     const [password, setPassword] = useState("");
-    const { login_user } = useAuth();
-    const nav = useNavigate();
+    const [cPass, setCPass]       = useState("");
+    const { register_user }       = useAuth();
   
     return (
       <Box bg="gray.800" p={8} rounded="lg" shadow="lg" w="full" maxW="420px">
         <VStack spacing={6} align="stretch">
           <Heading textAlign="center" size="lg" color="gray.100">
-            Iniciar Sesión
+            Crear Cuenta
           </Heading>
   
           <FormControl>
             <FormLabel color="gray.300">Nombre de Usuario</FormLabel>
             <Input
+              placeholder="Usuario"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="Usuario"
+              color="gray.100"
+              _placeholder={{ color: "gray.500" }}
+            />
+          </FormControl>
+  
+          <FormControl>
+            <FormLabel color="gray.300">Correo Electrónico</FormLabel>
+            <Input
+              type="email"
+              placeholder="correo@dominio.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               color="gray.100"
               _placeholder={{ color: "gray.500" }}
             />
@@ -36,29 +48,32 @@ import {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Contraseña"
               color="gray.100"
               _placeholder={{ color: "gray.500" }}
             />
           </FormControl>
   
-          <Button colorScheme="teal" onClick={() => login_user(username, password)}>
-            Login
-          </Button>
+          <FormControl>
+            <FormLabel color="gray.300">Confirmar Contraseña</FormLabel>
+            <Input
+              type="password"
+              value={cPass}
+              onChange={(e) => setCPass(e.target.value)}
+              color="gray.100"
+              _placeholder={{ color: "gray.500" }}
+            />
+          </FormControl>
   
-          <Text
-            fontSize="sm"
-            textAlign="center"
-            color="teal.300"
-            _hover={{ textDecoration: "underline", cursor: "pointer" }}
-            onClick={() => nav("/register")}
+          <Button
+            colorScheme="teal"
+            onClick={() => register_user(username, email, password, cPass)}
           >
-            ¿No tienes cuenta? Regístrate
-          </Text>
+            Registrarme
+          </Button>
         </VStack>
       </Box>
     );
   };
   
-  export default Login;
+  export default Register;
   
